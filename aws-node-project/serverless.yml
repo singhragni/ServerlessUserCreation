@@ -32,7 +32,7 @@ functions:
         method: get
   
   createAccount:
-    handler: index.createAddress
+    handler: index.createAccount
     events:
     - httpApi:
         path: /api/createAccount

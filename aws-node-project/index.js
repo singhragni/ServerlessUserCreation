@@ -11,8 +11,6 @@ module.exports.handler = async (event) => {
     ),
   };
 };
-
-
 exports.test = async() =>{
   return {
     statusCode: 200,
@@ -30,26 +28,51 @@ exports.test = async() =>{
 exports.checkName = async() =>{
  try{
    let fName = "ragini";
-    return fName;
+   const response = {
+    statusCode: 200,
+    body: JSON.stringify({ message: `Data received successfully , ${fName}` })
+  };
+  return response;
   }catch(error){
-  return error;
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal server error' })
+    };
   }
 }
 
 exports.checkAddress = async() =>{
   try{
     let add = "2A";
-    return add;
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({ message: `Data received successfully , ${add}` })
+    };
+    return response;
   }catch(error){
-    return error;
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal server error' })
+    };
   }
 }
 
 
 exports.createAccount = async(event) =>{
   try{
-      return event.body;
+    const data = JSON.stringify(event.body);
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({ message: `Data received successfully , ${data}` })
+    };
+    return response;
   }catch(error){
-    return error;
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: `Internal server error,${error}` })
+    };
   }
 }
