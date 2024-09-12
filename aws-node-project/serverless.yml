@@ -1,0 +1,41 @@
+service: aws-node-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-west-2
+
+functions:
+  function1:
+    handler: index.handler
+  
+  test:
+    handler: index.test
+    events:
+    - httpApi:
+        path: /
+        method: get
+  
+  checkName:
+    handler: index.checkName
+    events:
+    - httpApi:
+        path: /api/getName
+        method: get
+
+  checkAddress:
+    handler: index.checkAddress
+    events:
+    - httpApi:
+        path: /api/getAdress
+        method: get
+  
+  createAccount:
+    handler: index.createAddress
+    events:
+    - httpApi:
+        path: /api/createAccount
+        method: post
+
+
