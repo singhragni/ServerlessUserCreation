@@ -7,27 +7,6 @@ const { Client } = require('pg');
 const { json } = require('sequelize');
 
 
-async function pgClient() {
-  const client = new Client({
-
-    //     user: 'dev',
-//     host: 'cfx-prod-rds-db.chrznoaskbgj.us-west-2.rds.amazonaws.com',
-//     database: 'bank',
-//     password: 'dev@123@23#',
-//     port: 5432 // Default port for PostgreSQL
-    user: "dev",
-    host: 'cfx-prod-rds-db.chrznoaskbgj.us-west-2.rds.amazonaws.com',
-    database: 'bank',
-    password: 'dev@123@23#',
-    port: 5432,
-    debug: true,
-    delayMs: 3000,
-  });
-
-  console.log(client);
-  return client;
-  
-}
 
 exports.test = async() =>{
 
