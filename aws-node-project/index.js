@@ -5,35 +5,7 @@ const dynamodb = new AWS.DynamoDB({});
 const ServerlessClient = require('serverless-postgres')
 const { Client } = require('pg');
 const { json } = require('sequelize');
-// async function pgClient()
-// {  
 
-
-//  console.log("client")
-//   console.log( await client.connect()
-//   .then(() => {
-//     console.log('Connected to PostgreSQL database');
-//     // Perform database operations
-//   })
-//   .catch(err => {
-    
-//     console.log('Error connecting to PostgreSQL database:', err);
-//     return err;
-//   }))
-
-//     client.query('SELECT first_name from customers limit 1', (err, res) => {
-//       if (err) {
-//         console.error(err);
-//         return err;
-//       } else {
-//         //console.log(res.rows);
-//         console.log("rs");
-//         return "rs"
-//       }
-//     });
-//   }
-
-  // pgClient();
 
 async function pgClient() {
   const client = new Client({
