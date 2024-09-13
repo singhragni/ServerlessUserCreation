@@ -5,6 +5,20 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-west-2
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 
+            - dynamodb:GetItem
+            - dynamodb:putItem
+          Resource: 
+            - arn:aws:dynamodb:${self:provider.region}:386152433177:table/customersNamesTable
+            - arn:aws:dynamodb:${self:provider.region}:386152433177:table/customersAddressTable
+            - arn:aws:dynamodb:${self:provider.region}:386152433177:table/customersAccountTable
+                   
+plugins:
+  - serverless-postgres
 
 functions:
   function1:
@@ -24,18 +38,73 @@ functions:
         path: /api/getName
         method: get
 
+
   checkAddress:
     handler: index.checkAddress
     events:
     - httpApi:
-        path: /api/getAdress
+        path: /api/getAdress/{address}
         method: get
   
   createAccount:
     handler: index.createAccount
+    role: arn:aws:iam::386152433177:role/serverlessLambda
     events:
     - httpApi:
         path: /api/createAccount
         method: post
+  
+  createCustomerAccount:
+    handler: index.createCustomerAccount
+    events:
+    - httpApi:
+        path: /api/createCustomerAccount
+        method: post
+        
+
+  getData:
+    handler: index.getData
+    events:
+    - httpApi:
+        path: /api/getData/{name}
+        method: get
+  
+
+resources:
+  Resources:
+    customersNamesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: customersNamesTable
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    customersAddressTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: customersAddressTable
+        AttributeDefinitions:
+          - AttributeName: address
+            AttributeType: S
+        KeySchema:
+          - AttributeName: address
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    customersAccountTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: customersAccountTable
+        AttributeDefinitions:
+          - AttributeName: customerId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: customerId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
 
 
