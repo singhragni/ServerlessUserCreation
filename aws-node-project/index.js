@@ -7,14 +7,7 @@ const { Client } = require('pg');
 const { json } = require('sequelize');
 // async function pgClient()
 // {  
-//   const client = new Client({
 
-//     user: 'dev',
-//     host: 'cfx-prod-rds-db.chrznoaskbgj.us-west-2.rds.amazonaws.com',
-//     database: 'bank',
-//     password: 'dev@123@23#',
-//     port: 5432 // Default port for PostgreSQL
-//   });
 
 //  console.log("client")
 //   console.log( await client.connect()
@@ -95,27 +88,6 @@ exports.checkName = async() =>{
     };
   }
 }
-
-
-// exports.createAccount = async(event) =>{
-//   try{
-//     console.log((event.body))
-//     const data = "createAccount"
-//     const response = {
-//       statusCode: 200,
-//       body: JSON.stringify({ message: `Data received successfully , ${data}` })
-//     };
-//     return response;
-//   }catch(error){
-//     console.error(error);
-//     return {
-//       statusCode: 500,
-//       body: JSON.stringify({ message: `Internal server error,${error}` })
-//     };
-//   }
-// }
-
-
 exports.createAccount = async (event) => {
   const params = {
     TableName: 'myTableName',
@@ -130,7 +102,6 @@ exports.createAccount = async (event) => {
       WriteCapacityUnits: 5
     }
   };
-
   try {
     const data = await dynamodb.createTable(params).promise();
     return {
